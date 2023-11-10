@@ -52,7 +52,7 @@ function addBookToLibrary() {
   const title = document.querySelector("#title").value;
   const author = document.querySelector("#author").value;
   const pages = document.querySelector("#pages").value;
-  const read = document.querySelector("#read").checked;
+  const read = document.querySelector("#switch-1").checked;
 
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
@@ -87,18 +87,19 @@ function displayBooks() {
     // bookDiv.appendChild(read);
 
     const toggleButton = document.createElement("button");
-    toggleButton.classList.add("toggle");
+    toggleButton.classList.add("button");
     toggleButton.addEventListener("click", toggleRead);
     toggleButton.textContent = (book.read == true) ? "Read" : "Not read yet";
     bookDiv.appendChild(toggleButton);
 
     const deleteButton = document.createElement("button");
-    deleteButton.classList.add("delete");
+    deleteButton.classList.add("button");
     deleteButton.addEventListener("click", deleteBook);
     deleteButton.textContent = "Delete";
     bookDiv.appendChild(deleteButton);
 
     bookDiv.style.backgroundColor = (book.read == true) ? "rgb(61, 145, 82)" : "rgb(173, 135, 95)";
+    bookDiv.style.transition = "all 0.5s ease-in-out";
 
     container.appendChild(bookDiv);
   }

@@ -10,7 +10,7 @@
 <body>
     <div class="head">
         <h1>My Library</h1>
-        <button id="showDialog">Add a Book</button>
+        <button id="showDialog" class="button">Add a Book</button>
     </div>
     <div class="main">
         <div class="container">
@@ -21,32 +21,37 @@
         <form id="form">
             <p>
                 <label>
-                    Title:
+                    <!-- Title: -->
                     <input type="text" id="title" placeholder="Title" required>
                 </label>
             </p>
             <p>
                 <label>
-                    Author:
+                    <!-- Author: -->
                     <input type="text" id="author" placeholder="Author" required>
                 </label>
             </p>
             <p>
                 <label>
-                    Pages:
+                    <!-- Pages: -->
                     <input type="number" id="pages" placeholder="Pages" required>
                 </label>
             </p>
             <p>
-                <label>
-                    Read:
-                    <input type="checkbox" id="read" placeholder="Read">
-                </label>
+                <div id="read">
+                    Have you read this book?
+                    <div class="switch">
+                        <input type="checkbox" id="switch-1" class="switch-input">
+                        <label for="switch-1" class="switch-label" >
+                            Switch
+                        </label>
+                    </div>
+                </div>
             </p>
-            <p>
-                <input type="submit" id="submit" value="Add Book">
-                <button id="closeDialog">Cancel</button>
-            </p>
+            <div id="dialog--buttons">
+                <input type="submit" id="submit" class="button" value="Add Book">
+                <button id="closeDialog" class="button">Cancel</button>
+            </div>
         </form>
     </dialog>
 
