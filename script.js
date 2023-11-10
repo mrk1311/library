@@ -1,11 +1,43 @@
 const myLibrary = [];
 
+const showButton = document.querySelector("#showDialog");
+const bookDialog = document.querySelector("#bookDialog");
+const closeButton = document.querySelector("#closeDialog");
+const body = document.querySelector("body");
+
+// Prevent defaul submit action, add book to library, close dialog, reset form
+bookDialog.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addBookToLibrary();
+  bookDialog.close();
+  form.reset();
+});
+
+showButton.addEventListener("click", () => {
+  bookDialog.showModal();
+});
+
+closeButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  bookDialog.close();
+  form.reset();
+});
+
+// Close dialog when clicking outside of it
+
+body.addEventListener("click", (e) => {
+  if (e.target == bookDialog) {
+    bookDialog.close();
+    form.reset();
+  }
+});
+
 class Book {
   constructor(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = (read == "yes") ? "read" : "not read yet";
+    this.title = '"' + title + '"';
+    this.author = 'by: ' + author;
+    this.pages = pages + " pages";
+    this.read = read;
 
 
 
@@ -16,38 +48,17 @@ class Book {
   }
 }
 
-const showButton = document.querySelector("#showDialog");
-const bookDialog = document.querySelector("#bookDialog");
-const addBookButton = document.querySelector("#addBook");
-const closeButton = document.querySelector("#closeDialog");
-
-showButton.addEventListener("click", () => {
-  bookDialog.showModal();
-});
-
-addBookButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  addBookToLibrary();
-  bookDialog.close();
-});
-
-closeButton.addEventListener("click", () => {
-  bookDialog.close();
-});
-
-
 function addBookToLibrary() {
   const title = document.querySelector("#title").value;
   const author = document.querySelector("#author").value;
   const pages = document.querySelector("#pages").value;
-  const read = document.querySelector("#read").value;
+  const read = document.querySelector("#read").checked;
 
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
   displayBooks();
 }
 
-// TODO Prevent defaul submit action
 
 function displayBooks() {
   const container = document.querySelector(".container");
@@ -58,14 +69,51 @@ function displayBooks() {
     const bookDiv = document.createElement("div");
     bookDiv.classList.add("book");
     bookDiv.setAttribute("data-index", i);
-    bookDiv.innerHTML = `
-      <p>${book.title}</p>
-      <p>${book.author}</p>
-      <p>${book.pages}</p>
-      <p>${book.read}</p>
-      <button class="delete">Delete</button>
-      <button class="toggle">Toggle Read</button>
-    `;
+
+    const title = document.createElement("p");
+    title.textContent = book.title;
+    bookDiv.appendChild(title);
+
+    const author = document.createElement("p");
+    author.textContent = book.author;
+    bookDiv.appendChild(author);
+
+    const pages = document.createElement("p");
+    pages.textContent = book.pages;
+    bookDiv.appendChild(pages);
+
+    // const read = document.createElement("p");
+    // read.textContent = (book.read == true) ? "read" : "not read yet";
+    // bookDiv.appendChild(read);
+
+    const toggleButton = document.createElement("button");
+    toggleButton.classList.add("toggle");
+    toggleButton.addEventListener("click", toggleRead);
+    toggleButton.textContent = (book.read == true) ? "Read" : "Not read yet";
+    bookDiv.appendChild(toggleButton);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete");
+    deleteButton.addEventListener("click", deleteBook);
+    deleteButton.textContent = "Delete";
+    bookDiv.appendChild(deleteButton);
+
+    bookDiv.style.backgroundColor = (book.read == true) ? "rgb(61, 145, 82)" : "rgb(173, 135, 95)";
+
     container.appendChild(bookDiv);
   }
 }
+
+function deleteBook(e) {
+  const bookIndex = e.target.parentElement.dataset.index;
+  myLibrary.splice(bookIndex, 1);
+  displayBooks();
+}
+
+function toggleRead(e) {
+  const bookIndex = e.target.parentElement.dataset.index;
+  const book = myLibrary[bookIndex];
+  book.read = !book.read;
+  displayBooks();
+}
+

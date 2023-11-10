@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="script.js" defer></script>
-    <stylesheet href="style.css"></stylesheet>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="head">
@@ -24,22 +24,27 @@
                     Title:
                     <input type="text" id="title" placeholder="Title" required>
                 </label>
+            </p>
+            <p>
                 <label>
                     Author:
                     <input type="text" id="author" placeholder="Author" required>
                 </label>
+            </p>
+            <p>
                 <label>
                     Pages:
                     <input type="number" id="pages" placeholder="Pages" required>
                 </label>
+            </p>
+            <p>
                 <label>
                     Read:
                     <input type="checkbox" id="read" placeholder="Read">
                 </label>
             </p>
             <p>
-                <input type="submit" id="submit" value="Submit">
-                <button id="addBook" value="default">Add Book</button>
+                <input type="submit" id="submit" value="Add Book">
                 <button id="closeDialog">Cancel</button>
             </p>
         </form>
