@@ -84,7 +84,7 @@ input {
     background-color: rgb(31, 31, 31);
 } */
 
-input:active {
+input:focus {
     background-color: rgb(31, 31, 31);
 }
 
